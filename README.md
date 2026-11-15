@@ -46,3 +46,6 @@ Está fora do escopo: qualquer interface gráfica ou web, integração com um ga
 
 ---
 
+## Desenvolvimento
+
+15/11: US1 concluída (71 testes OK). Usuários pessoa física e jurídica, com plano avulso ou assinante. A Facade só repassa os pedidos, cada usuário responde pelos próprios atributos e o repositório gera os ids sem nunca expor a lista.
