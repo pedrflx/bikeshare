@@ -1,10 +1,10 @@
-package br.ufal.ic.p2.bikeshare.models.pagamento;
+package br.ufal.ic.p2.bikeshare.models.pagamentos;
 
 /*
     forma de pagamento de quem ainda não cadastrou nenhuma
 */
 
-public class SemPagamento extends MetodoPagamento
+public class SemPag extends MetodoPag
 {
 
     @Override
