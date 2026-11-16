@@ -21,6 +21,8 @@ public abstract class Usuario
     private String estado = "ativo";
     private Plano plano = new PlanoAvulso();
     private MetodoPag metodoPagamento = new SemPag();
+    private String aluguelAtivo = "nenhum";
+    private double totalPendencias = 0;
 
     public Usuario(String id, String nome, String email, String senha) throws BikeshareException
     {
@@ -63,6 +65,10 @@ public abstract class Usuario
         {
             return getTipo();
         }
+        else if (atributo.equals("senha"))
+        {
+            return senha;
+        }
         else if (atributo.equals("estado"))
         {
             return estado;
@@ -78,6 +84,30 @@ public abstract class Usuario
         else if (atributo.equals("metodoPagamento"))
         {
             return metodoPagamento.getNome();
+        }
+        else if (atributo.equals("numeroCartao"))
+        {
+            return metodoPagamento.getNumeroCartao();
+        }
+        else if (atributo.equals("validadeCartao"))
+        {
+            return metodoPagamento.getValidadeCartao();
+        }
+        else if (atributo.equals("chavePix"))
+        {
+            return metodoPagamento.getChavePix();
+        }
+        else if (atributo.equals("saldo"))
+        {
+            return Conversor.formatarValor(metodoPagamento.getSaldo());
+        }
+        else if (atributo.equals("aluguelAtivo"))
+        {
+            return aluguelAtivo;
+        }
+        else if (atributo.equals("totalPendencias"))
+        {
+            return Conversor.formatarValor(totalPendencias);
         }
         else if (atributo.equals("cpf"))
         {
