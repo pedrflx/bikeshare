@@ -50,6 +50,21 @@ public class RepositorioUsuarios
         throw new UsuarioNaoExisteException();
     }
 
+    // o email é procurado sem diferenciar maiúscula de minúscula, igual ao cadastro
+    public String buscarPorEmail(String email) throws BikeshareException
+    {
+        Conversor.validarTexto(email, new EmailNuloException());
+
+        for (Usuario usuario : usuarios)
+        {
+            if (usuario.getEmail().equalsIgnoreCase(email))
+            {
+                return usuario.getId();
+            }
+        }
+        throw new UsuarioNaoExisteException();
+    }
+
     public void zerar()
     {
         usuarios = new ArrayList<>();

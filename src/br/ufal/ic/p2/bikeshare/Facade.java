@@ -44,10 +44,10 @@ public class Facade {
         return usuarios.buscar(usuario).getAtributo(atributo);
     }
 
-    public String getUsuarioPorEmail(String email) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public String getUsuarioPorEmail(String email) throws BikeshareException
+    {
+        return usuarios.buscarPorEmail(email);
     }
-
     // =====================================================================
     // US3 - Alteracao de usuario (inclui metodo de pagamento)
     // =====================================================================
