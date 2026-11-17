@@ -6,12 +6,13 @@ import br.ufal.ic.p2.bikeshare.models.pagamentos.SemPag;
 import br.ufal.ic.p2.bikeshare.models.planos.Plano;
 import br.ufal.ic.p2.bikeshare.models.planos.PlanoAvulso;
 import br.ufal.ic.p2.bikeshare.utils.Conversor;
+import java.io.Serializable;
 
 /*
     mãe dos dois tipos de usuário: Pessoa Fisica(PF) e Pessoa Juridica(PJ)
 */
 
-public abstract class Usuario
+public abstract class Usuario implements Serializable
 {
 
     private String id;

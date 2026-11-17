@@ -4,12 +4,13 @@ import br.ufal.ic.p2.bikeshare.exceptions.*;
 import br.ufal.ic.p2.bikeshare.models.usuarios.Usuario;
 import br.ufal.ic.p2.bikeshare.utils.Conversor;
 import java.util.ArrayList;
+import java.io.Serializable;
 
 /*
     guarda os usuários cadastrados, gera os ids (U1, U2...) e procura por id
 */
 
-public class RepositorioUsuarios
+public class RepositorioUsuarios implements Serializable
 {
 
     private ArrayList<Usuario> usuarios = new ArrayList<>();

@@ -4,12 +4,13 @@ import br.ufal.ic.p2.bikeshare.exceptions.BikeshareException;
 import br.ufal.ic.p2.bikeshare.exceptions.PlanoInvalidoException;
 import br.ufal.ic.p2.bikeshare.exceptions.PlanoSemMensalidadeException;
 import br.ufal.ic.p2.bikeshare.utils.Conversor;
+import java.io.Serializable;
 
 /*
     mãe dos planos de cobrança do usuário
 */
 
-public abstract class Plano
+public abstract class Plano implements Serializable
 {
 
     public abstract String getNome();
