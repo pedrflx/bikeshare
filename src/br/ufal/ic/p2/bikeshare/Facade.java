@@ -1,15 +1,27 @@
 package br.ufal.ic.p2.bikeshare;
+
+
 import br.ufal.ic.p2.bikeshare.exceptions.BikeshareException;
 import br.ufal.ic.p2.bikeshare.sistema.FabricaUsuario;
 import br.ufal.ic.p2.bikeshare.sistema.RepositorioUsuarios;
+import br.ufal.ic.p2.bikeshare.sistema.Dados;
+import br.ufal.ic.p2.bikeshare.sistema.Persistencia;
 
 /**
  Facade
  */
-public class Facade {
+public class Facade
+{
 
     private static final String AINDA_NAO_IMPLEMENTADO = "Ainda não implementado.";
-    private RepositorioUsuarios usuarios = new RepositorioUsuarios();
+    private RepositorioUsuarios usuarios;
+
+    // ao abrir, o sistema retoma o que foi salvo no último encerrarSistema
+    public Facade()
+    {
+        Dados dados = Persistencia.carregar();
+        usuarios = dados.getUsuarios();
+    }
 
     // =====================================================================
     // US1 - Cadastro de usuario
@@ -205,8 +217,8 @@ public class Facade {
         usuarios.zerar();
     }
 
-    public void encerrarSistema()
+    public void encerrarSistema() throws BikeshareException
     {
-
+        Persistencia.salvar(new Dados(usuarios));
     }
-    }
+}
