@@ -34,4 +34,13 @@ public abstract class Plano implements Serializable
         }
         throw new PlanoInvalidoException();
     }
+
+    public static Plano criar(String nome) throws BikeshareException
+    {
+        if ("assinante".equals(nome))
+        {
+            return new PlanoAssinante();
+        }
+        return criar(nome, "");
+    }
 }

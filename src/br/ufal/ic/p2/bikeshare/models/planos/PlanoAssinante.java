@@ -26,6 +26,14 @@ public class PlanoAssinante extends Plano
         return "assinante";
     }
 
+    private static final double MENSALIDADE_PADRAO = 30;
+    private double mensalidade;
+
+    public PlanoAssinante()   // assinante escolhido depois do cadastro, sem mensalidade informada
+    {
+        this.mensalidade = MENSALIDADE_PADRAO;
+    }
+
     @Override
     public double getMensalidade()
     {

@@ -25,24 +25,38 @@ public class Conversor
         }
     }
 
-    // lê um valor com vírgula ("120,50") e confere se não é vazio, se é número e se não é negativo
-    public static double converterNaoNegativo(String valor, BikeshareException nulo, BikeshareException naoNumerico, BikeshareException negativo) throws BikeshareException
+    // lê um valor com vírgula ("120,50") e confere se não é vazio e se é número
+    private static double converterNumero(String valor, BikeshareException nulo, BikeshareException naoNumerico) throws BikeshareException
     {
         validarTexto(valor, nulo);
-
-        double numero;
         try
         {
-            numero = Double.parseDouble(valor.trim().replace(",", "."));
+            return Double.parseDouble(valor.trim().replace(",", "."));
         }
         catch (NumberFormatException e)
         {
             throw naoNumerico;
         }
+    }
 
+    // aceita zero, como a mensalidade
+    public static double converterNaoNegativo(String valor, BikeshareException nulo, BikeshareException naoNumerico, BikeshareException negativo) throws BikeshareException
+    {
+        double numero = converterNumero(valor, nulo, naoNumerico);
         if (numero < 0)
         {
             throw negativo;
+        }
+        return numero;
+    }
+
+    // não aceita zero, como a recarga de saldo
+    public static double converterPositivo(String valor, BikeshareException nulo, BikeshareException naoNumerico, BikeshareException naoPositivo) throws BikeshareException
+    {
+        double numero = converterNumero(valor, nulo, naoNumerico);
+        if (numero <= 0)
+        {
+            throw naoPositivo;
         }
         return numero;
     }
