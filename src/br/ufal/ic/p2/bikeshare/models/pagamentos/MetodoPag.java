@@ -34,4 +34,9 @@ public abstract class MetodoPag implements Serializable
     {
         throw new UsuarioNaoUsaSaldoException();
     }
+
+    public void recarregar(String valor) throws BikeshareException
+    {
+        throw new UsuarioNaoUsaSaldoException();
+    }
 }
