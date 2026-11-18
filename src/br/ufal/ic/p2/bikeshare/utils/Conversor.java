@@ -61,6 +61,30 @@ public class Conversor
         return numero;
     }
 
+    // lê um número inteiro ("10"). "2,5", "5.0" e "1e3" não são inteiros
+    private static int converterInteiro(String valor, BikeshareException nulo, BikeshareException naoNumerico) throws BikeshareException
+    {
+        validarTexto(valor, nulo);
+        try
+        {
+            return Integer.parseInt(valor.trim());
+        }
+        catch (NumberFormatException e)
+        {
+            throw naoNumerico;
+        }
+    }
+
+    public static int converterInteiroPositivo(String valor, BikeshareException nulo, BikeshareException naoNumerico, BikeshareException naoPositivo) throws BikeshareException
+    {
+        int numero = converterInteiro(valor, nulo, naoNumerico);
+        if (numero <= 0)
+        {
+            throw naoPositivo;
+        }
+        return numero;
+    }
+
     // 50 vira "50,00" e 120.5 vira "120,50"
     public static String formatarValor(double valor)
     {
