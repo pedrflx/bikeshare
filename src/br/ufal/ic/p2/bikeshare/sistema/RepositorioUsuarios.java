@@ -69,6 +69,12 @@ public class RepositorioUsuarios implements Serializable
         throw new UsuarioNaoExisteException();
     }
 
+    // id do removido não volta a ser usado
+    public void remover(String id) throws BikeshareException
+    {
+        usuarios.remove(buscar(id));
+    }
+
     // o email é procurado sem diferenciar maiúscula de minúscula, igual ao cadastro
     public String buscarPorEmail(String email) throws BikeshareException
     {
