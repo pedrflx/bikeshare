@@ -4,18 +4,20 @@ import br.ufal.ic.p2.bikeshare.exceptions.*;
 import br.ufal.ic.p2.bikeshare.models.usuarios.Usuario;
 import br.ufal.ic.p2.bikeshare.utils.Conversor;
 import java.util.ArrayList;
-import java.io.Serializable;
 
 /*
     guarda os usuários cadastrados, gera os ids (U1, U2...) e procura por id
 */
 
-public class RepositorioUsuarios implements Serializable
+public class RepositorioUsuarios extends Repositorio
 {
 
     private ArrayList<Usuario> usuarios = new ArrayList<>();
-    private int ultimoId = 0;
 
+    public RepositorioUsuarios()
+    {
+        super("U");
+    }
     // só mostra o próximo id
     public String proximoId()
     {
@@ -27,7 +29,7 @@ public class RepositorioUsuarios implements Serializable
         verificarEmailLivre(novo.getEmail(), novo);
 
         usuarios.add(novo);
-        ultimoId++;
+        gastarId();
         return novo.getId();
     }
 

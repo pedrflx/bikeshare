@@ -216,9 +216,10 @@ public class Facade
     // Ciclo de vida do sistema
     // =====================================================================
 
+    // sistema zerado = repositórios novos, com os contadores de id do começo
     public void zerarSistema()
     {
-        usuarios.zerar();
+        usuarios = new RepositorioUsuarios();
     }
 
     public void encerrarSistema() throws BikeshareException
