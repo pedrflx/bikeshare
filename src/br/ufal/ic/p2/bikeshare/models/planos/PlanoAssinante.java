@@ -12,7 +12,7 @@ import br.ufal.ic.p2.bikeshare.utils.Conversor;
 
 public class PlanoAssinante extends Plano
 {
-
+    private static final double MENSALIDADE_PADRAO = 30;
     private double mensalidade;
 
     public PlanoAssinante(String mensalidade) throws BikeshareException
@@ -25,9 +25,6 @@ public class PlanoAssinante extends Plano
     {
         return "assinante";
     }
-
-    private static final double MENSALIDADE_PADRAO = 30;
-    private double mensalidade;
 
     public PlanoAssinante()   // assinante escolhido depois do cadastro, sem mensalidade informada
     {

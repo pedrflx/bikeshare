@@ -24,17 +24,35 @@ public class RepositorioUsuarios implements Serializable
 
     public String adicionar(Usuario novo) throws BikeshareException
     {
-        for (Usuario usuario : usuarios)
-        {
-            if (usuario.getEmail().equalsIgnoreCase(novo.getEmail()))
-            {
-                throw new EmailJaCadastradoException();
-            }
-        }
+        verificarEmailLivre(novo.getEmail(), novo);
 
         usuarios.add(novo);
         ultimoId++;
         return novo.getId();
+    }
+
+    // o email é o único dado que depende dos outros usuários
+    public void alterar(String id, String atributo, String valor) throws BikeshareException
+    {
+        Usuario usuario = buscar(id);
+
+        if (atributo.equals("email"))
+        {
+            verificarEmailLivre(valor, usuario);
+        }
+        usuario.alterar(atributo, valor);
+    }
+
+    // o email não pode ser de outro usuário
+    private void verificarEmailLivre(String email, Usuario dono) throws BikeshareException
+    {
+        for (Usuario usuario : usuarios)
+        {
+            if (usuario != dono && usuario.getEmail().equalsIgnoreCase(email))
+            {
+                throw new EmailJaCadastradoException();
+            }
+        }
     }
 
     public Usuario buscar(String id) throws BikeshareException

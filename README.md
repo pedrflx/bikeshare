@@ -48,8 +48,10 @@ Está fora do escopo: qualquer interface gráfica ou web, integração com um ga
 
 ## Desenvolvimento
 
-US1 concluída (71 testes OK). Usuários pessoa física e jurídica, com plano avulso ou assinante. A Facade só repassa os pedidos, cada usuário responde pelos próprios atributos e o repositório gera os ids sem nunca expor a lista.
+15/11 US1 concluída (71 testes OK). Usuários pessoa física e jurídica, com plano avulso ou assinante. A Facade só repassa os pedidos, cada usuário responde pelos próprios atributos e o repositório gera os ids sem nunca expor a lista.
 
-US2 concluída (46 testes OK). Consulta de todos os atributos do usuário e busca por email sem diferenciar maiúsculas. Os dados de cartão, pix e saldo dão erro por padrão na forma de pagamento, e cada forma vai sobrescrever só os seus.
+15/11 US2 concluída (46 testes OK). Consulta de todos os atributos do usuário e busca por email sem diferenciar maiúsculas. Os dados de cartão, pix e saldo dão erro por padrão na forma de pagamento, e cada forma vai sobrescrever só os seus.
 
-Persistência (us1_1 com 14 testes OK). Ao encerrar, o sistema grava os dados em bikeshare_data.ser com Serializable, e ao abrir carrega de volta.
+16/11 Persistência (us1_1 com 14 testes OK). Ao encerrar, o sistema grava os dados em bikeshare_data.ser com Serializable, e ao abrir carrega de volta.
+
+17/11 US3 concluída (us3 com 129 testes OK e us3_1 com 17). Alteração de dados, plano e forma de pagamento. Cartão, pix e saldo carregado são filhas de MetodoPag e cada uma responde só pelos próprios dados. O saldo fica guardado ao trocar de forma de pagamento, e o email continua único também na alteração.
