@@ -7,6 +7,9 @@ import br.ufal.ic.p2.bikeshare.models.planos.Plano;
 import br.ufal.ic.p2.bikeshare.models.planos.PlanoAvulso;
 import br.ufal.ic.p2.bikeshare.utils.Conversor;
 import java.io.Serializable;
+import br.ufal.ic.p2.bikeshare.models.pagamentos.Cartao;
+import br.ufal.ic.p2.bikeshare.models.pagamentos.Pix;
+import br.ufal.ic.p2.bikeshare.models.pagamentos.SaldoCarregado;
 
 /*
     mãe dos dois tipos de usuário: Pessoa Fisica(PF) e Pessoa Juridica(PJ)
@@ -22,6 +25,7 @@ public abstract class Usuario implements Serializable
     private String estado = "ativo";
     private Plano plano = new PlanoAvulso();
     private MetodoPag metodoPagamento = new SemPag();
+    private SaldoCarregado saldoCarregado = new SaldoCarregado();
     private String aluguelAtivo = "nenhum";
     private double totalPendencias = 0;
 
@@ -129,6 +133,74 @@ public abstract class Usuario implements Serializable
     public String getId()
     {
         return id;
+    }
+
+    public void alterar(String atributo, String valor) throws BikeshareException
+    {
+        if (atributo.equals("nome"))
+        {
+            setNome(valor);
+        }
+        else if (atributo.equals("email"))
+        {
+            setEmail(valor);
+        }
+        else if (atributo.equals("senha"))
+        {
+            setSenha(valor);
+        }
+        else if (atributo.equals("plano"))
+        {
+            alterarPlano(valor);
+        }
+        else if (atributo.equals("saldo"))
+        {
+            metodoPagamento.recarregar(valor);
+        }
+        else if (atributo.equals("metodoPagamento"))
+        {
+            validarEscolha(atributo, valor, "saldoPreCarregado");
+            metodoPagamento = saldoCarregado;
+        }
+        else
+        {
+            throw new AtributoNaoPodeSerAlteradoException();
+        }
+    }
+
+    // com a chave, só dá pra escolher pix
+    public void alterar(String atributo, String valor, String chave) throws BikeshareException
+    {
+        validarEscolha(atributo, valor, "pix");
+        metodoPagamento = new Pix(chave);
+    }
+
+    // com número e validade, só dá pra escolher cartão
+    public void alterar(String atributo, String valor, String numero, String validade) throws BikeshareException
+    {
+        validarEscolha(atributo, valor, "cartao");
+        metodoPagamento = new Cartao(numero, validade);
+    }
+
+    private void validarEscolha(String atributo, String valor, String esperado) throws BikeshareException
+    {
+        if (!atributo.equals("metodoPagamento"))
+        {
+            throw new AtributoNaoPodeSerAlteradoException();
+        }
+        if (!esperado.equals(valor))
+        {
+            throw new MetodoPagamentoInvalidoException();
+        }
+    }
+
+    // escolher o plano que já tem não muda nada
+    private void alterarPlano(String nome) throws BikeshareException
+    {
+        if (!plano.getNome().equals(nome))
+        {
+            setPlano(Plano.criar(nome));
+        }
     }
 
     public String getEmail()
