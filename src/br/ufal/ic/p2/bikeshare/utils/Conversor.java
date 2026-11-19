@@ -85,6 +85,16 @@ public class Conversor
         return numero;
     }
 
+    public static int converterInteiroEntre(String valor, int minimo, int maximo, BikeshareException nulo, BikeshareException naoNumerico, BikeshareException foraDoLimite) throws BikeshareException
+    {
+        int numero = converterInteiro(valor, nulo, naoNumerico);
+        if (numero < minimo || numero > maximo)
+        {
+            throw foraDoLimite;
+        }
+        return numero;
+    }
+
     // 50 vira "50,00" e 120.5 vira "120,50"
     public static String formatarValor(double valor)
     {
