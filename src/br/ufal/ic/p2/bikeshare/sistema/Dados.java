@@ -10,15 +10,18 @@ public class Dados implements Serializable {
 
     private RepositorioUsuarios usuarios;
     private RepositorioEstacoes estacoes;
+    private RepositorioBicicletas bicicletas;
 
-    public Dados() {
-        this(new RepositorioUsuarios(), new RepositorioEstacoes());
+    public Dados()
+    {
+        this(new RepositorioUsuarios(), new RepositorioEstacoes(), new RepositorioBicicletas());
     }
 
-    public Dados(RepositorioUsuarios usuarios, RepositorioEstacoes estacoes)
+    public Dados(RepositorioUsuarios usuarios, RepositorioEstacoes estacoes, RepositorioBicicletas bicicletas)
     {
         this.usuarios = usuarios;
         this.estacoes = estacoes;
+        this.bicicletas = bicicletas;
     }
 
     public RepositorioUsuarios getUsuarios() {
@@ -28,5 +31,10 @@ public class Dados implements Serializable {
     public RepositorioEstacoes getEstacoes() {
         return estacoes;
 
+    }
+
+    public RepositorioBicicletas getBicicletas()
+    {
+        return bicicletas;
     }
 }

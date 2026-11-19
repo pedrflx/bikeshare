@@ -8,6 +8,8 @@ import br.ufal.ic.p2.bikeshare.sistema.Dados;
 import br.ufal.ic.p2.bikeshare.sistema.Persistencia;
 import br.ufal.ic.p2.bikeshare.models.estacoes.Estacao;
 import br.ufal.ic.p2.bikeshare.sistema.RepositorioEstacoes;
+import br.ufal.ic.p2.bikeshare.sistema.CriaBicicleta;
+import br.ufal.ic.p2.bikeshare.sistema.RepositorioBicicletas;
 
 /**
  Facade
@@ -18,6 +20,7 @@ public class Facade
     private static final String AINDA_NAO_IMPLEMENTADO = "Ainda não implementado.";
     private RepositorioUsuarios usuarios;
     private RepositorioEstacoes estacoes;
+    private RepositorioBicicletas bicicletas;
 
     // ao abrir, o sistema retoma o que foi salvo no último encerrarSistema
     public Facade()
@@ -25,6 +28,7 @@ public class Facade
         Dados dados = Persistencia.carregar();
         usuarios = dados.getUsuarios();
         estacoes = dados.getEstacoes();
+        bicicletas = dados.getBicicletas();
     }
 
     // =====================================================================
@@ -105,36 +109,43 @@ public class Facade
     // US6 - Gestao de bicicletas na estacao
     // =====================================================================
 
-    public void adicionarBicicleta(String estacao, String bicicleta, String tipo) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public void adicionarBicicleta(String estacao, String bicicleta, String tipo) throws BikeshareException
+    {
+        bicicletas.adicionar(estacoes.buscar(estacao), CriaBicicleta.criar(bicicletas.validarNovoId(bicicleta), tipo));
     }
 
-    public void adicionarBicicleta(String estacao, String bicicleta, String tipo, String nivelBateria) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public void adicionarBicicleta(String estacao, String bicicleta, String tipo, String nivelBateria) throws BikeshareException
+    {
+        bicicletas.adicionar(estacoes.buscar(estacao), CriaBicicleta.criar(bicicletas.validarNovoId(bicicleta), tipo, nivelBateria));
     }
 
-    public void removerBicicleta(String estacao, String bicicleta) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public void removerBicicleta(String estacao, String bicicleta) throws BikeshareException
+    {
+        bicicletas.remover(estacoes.buscar(estacao), bicicleta);
     }
 
-    public String getAtributoBicicleta(String bicicleta, String atributo) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public String getAtributoBicicleta(String bicicleta, String atributo) throws BikeshareException
+    {
+        return bicicletas.buscar(bicicleta).getAtributo(atributo);
     }
 
     // =====================================================================
     // US7 - Consulta de disponibilidade
     // =====================================================================
 
-    public String getBicicletasDisponiveis(String estacao) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public String getBicicletasDisponiveis(String estacao) throws BikeshareException
+    {
+        return estacoes.buscar(estacao).getBicicletasDisponiveis();
     }
 
-    public String getVagasDisponiveis(String estacao) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public String getVagasDisponiveis(String estacao) throws BikeshareException
+    {
+        return estacoes.buscar(estacao).getVagasDisponiveis();
     }
 
-    public String getEstadoBicicleta(String bicicleta) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public String getEstadoBicicleta(String bicicleta) throws BikeshareException
+    {
+        return bicicletas.buscar(bicicleta).getEstado();
     }
 
     // =====================================================================
@@ -226,10 +237,11 @@ public class Facade
     {
         usuarios = new RepositorioUsuarios();
         estacoes = new RepositorioEstacoes();
+        bicicletas = new RepositorioBicicletas();
     }
 
     public void encerrarSistema() throws BikeshareException
     {
-        Persistencia.salvar(new Dados(usuarios, estacoes));
+        Persistencia.salvar(new Dados(usuarios, estacoes, bicicletas));
     }
 }
