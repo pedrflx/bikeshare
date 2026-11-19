@@ -6,6 +6,8 @@ import br.ufal.ic.p2.bikeshare.sistema.FabricaUsuario;
 import br.ufal.ic.p2.bikeshare.sistema.RepositorioUsuarios;
 import br.ufal.ic.p2.bikeshare.sistema.Dados;
 import br.ufal.ic.p2.bikeshare.sistema.Persistencia;
+import br.ufal.ic.p2.bikeshare.models.estacoes.Estacao;
+import br.ufal.ic.p2.bikeshare.sistema.RepositorioEstacoes;
 
 /**
  Facade
@@ -15,12 +17,14 @@ public class Facade
 
     private static final String AINDA_NAO_IMPLEMENTADO = "Ainda não implementado.";
     private RepositorioUsuarios usuarios;
+    private RepositorioEstacoes estacoes;
 
     // ao abrir, o sistema retoma o que foi salvo no último encerrarSistema
     public Facade()
     {
         Dados dados = Persistencia.carregar();
         usuarios = dados.getUsuarios();
+        estacoes = dados.getEstacoes();
     }
 
     // =====================================================================
@@ -92,8 +96,9 @@ public class Facade
     // US5 - Cadastro de estacao
     // =====================================================================
 
-    public String criarEstacao(String nome, String endereco, String capacidade) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public String criarEstacao(String nome, String endereco, String capacidade) throws BikeshareException
+    {
+        return estacoes.adicionar(new Estacao(estacoes.proximoId(), nome, endereco, capacidade));
     }
 
     // =====================================================================
@@ -220,10 +225,11 @@ public class Facade
     public void zerarSistema()
     {
         usuarios = new RepositorioUsuarios();
+        estacoes = new RepositorioEstacoes();
     }
 
     public void encerrarSistema() throws BikeshareException
     {
-        Persistencia.salvar(new Dados(usuarios));
+        Persistencia.salvar(new Dados(usuarios, estacoes));
     }
 }

@@ -57,3 +57,5 @@ Está fora do escopo: qualquer interface gráfica ou web, integração com um ga
 17/11 US3 concluída (us3 com 129 testes OK e us3_1 com 17). Alteração de dados, plano e forma de pagamento. Cartão, pix e saldo carregado são filhas de MetodoPag e cada uma responde só pelos próprios dados. O saldo fica guardado ao trocar de forma de pagamento, e o email continua único também na alteração.
 
 18/11 US4 concluída (us4 com 37 testes OK e us4_1 com 15). Remoção de usuário pelo repositório. Os ids nunca são reaproveitados e o email do removido fica livre para um novo cadastro.
+
+18/11 US5 concluída (us5 com 42 testes OK e us5_1 com 11). Cadastro de estação com nome, endereço e capacidade. Os repositórios tem uma mãe que gera os ids, e as estações também são salvas no arquivo.

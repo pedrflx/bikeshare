@@ -18,11 +18,6 @@ public class RepositorioUsuarios extends Repositorio
     {
         super("U");
     }
-    // só mostra o próximo id
-    public String proximoId()
-    {
-        return "U" + (ultimoId + 1);
-    }
 
     public String adicionar(Usuario novo) throws BikeshareException
     {
@@ -78,23 +73,14 @@ public class RepositorioUsuarios extends Repositorio
     }
 
     // o email é procurado sem diferenciar maiúscula de minúscula, igual ao cadastro
-    public String buscarPorEmail(String email) throws BikeshareException
-    {
+    public String buscarPorEmail(String email) throws BikeshareException {
         Conversor.validarTexto(email, new EmailNuloException());
 
-        for (Usuario usuario : usuarios)
-        {
-            if (usuario.getEmail().equalsIgnoreCase(email))
-            {
+        for (Usuario usuario : usuarios) {
+            if (usuario.getEmail().equalsIgnoreCase(email)) {
                 return usuario.getId();
             }
         }
         throw new UsuarioNaoExisteException();
-    }
-
-    public void zerar()
-    {
-        usuarios = new ArrayList<>();
-        ultimoId = 0;
     }
 }
