@@ -39,4 +39,9 @@ public abstract class MetodoPag implements Serializable
     {
         throw new UsuarioNaoUsaSaldoException();
     }
+
+    public void validarRetirada() throws BikeshareException
+    {
+        // cartão e pix sempre autorizam a retirada
+    }
 }

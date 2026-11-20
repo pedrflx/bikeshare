@@ -69,7 +69,10 @@ public class RepositorioUsuarios extends Repositorio
     // id do removido não volta a ser usado
     public void remover(String id) throws BikeshareException
     {
-        usuarios.remove(buscar(id));
+        Usuario usuario = buscar(id);
+
+        usuario.validarRemocao();
+        usuarios.remove(usuario);
     }
 
     // o email é procurado sem diferenciar maiúscula de minúscula, igual ao cadastro

@@ -17,7 +17,7 @@ import br.ufal.ic.p2.bikeshare.models.pagamentos.SaldoCarregado;
 
 public abstract class Usuario implements Serializable
 {
-
+    private static final String SEM_ALUGUEL = "nenhum";
     private String id;
     private String nome;
     private String email;
@@ -26,7 +26,7 @@ public abstract class Usuario implements Serializable
     private Plano plano = new PlanoAvulso();
     private MetodoPag metodoPagamento = new SemPag();
     private SaldoCarregado saldoCarregado = new SaldoCarregado();
-    private String aluguelAtivo = "nenhum";
+    private String aluguelAtivo = SEM_ALUGUEL;
     private double totalPendencias = 0;
 
     public Usuario(String id, String nome, String email, String senha) throws BikeshareException
@@ -128,6 +128,32 @@ public abstract class Usuario implements Serializable
         }
 
         throw new AtributoNaoExisteException();
+    }
+
+    public void verificarSemAluguel() throws BikeshareException
+    {
+        if (!aluguelAtivo.equals(SEM_ALUGUEL))
+        {
+            throw new UsuarioJaPossuiAluguelException();
+        }
+    }
+
+    public void validarRemocao() throws BikeshareException
+    {
+        if (!aluguelAtivo.equals(SEM_ALUGUEL))
+        {
+            throw new UsuarioComAluguelException();
+        }
+    }
+
+    public void validarPagamento() throws BikeshareException
+    {
+        metodoPagamento.validarRetirada();
+    }
+
+    public void iniciarAluguel(String aluguel)
+    {
+        aluguelAtivo = aluguel;
     }
 
     public String getId()
