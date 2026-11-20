@@ -11,6 +11,7 @@ import java.io.Serializable;
 
 public abstract class Bicicleta implements Serializable
 {
+    private static final String SEM_ESTACAO = "nenhuma";
     private String id;
     private String estado = "disponivel";
     private String estacao = "nenhuma";
@@ -27,6 +28,18 @@ public abstract class Bicicleta implements Serializable
     {
         throw new BicicletaNaoPossuiBateriaException();
     }
+
+    public void validarRetirada() throws BikeshareException
+    {
+
+    }
+
+    public void iniciarUso()
+    {
+        estado = "emUso";
+        estacao = SEM_ESTACAO;
+    }
+
     public boolean estaDisponivel()
     {
         return estado.equals("disponivel");
@@ -59,10 +72,7 @@ public abstract class Bicicleta implements Serializable
         return id;
     }
 
-    public String getEstado()
-    {
-        return estado;
-    }
+    private String estacao = SEM_ESTACAO;
 
     public void setEstacao(String estacao)
     {

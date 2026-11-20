@@ -47,12 +47,17 @@ public class Estacao implements Serializable
         bicicleta.setEstacao(id);
     }
 
-    public void retirar(Bicicleta bicicleta) throws BikeshareException
+    public void verificarBicicleta(Bicicleta bicicleta) throws BikeshareException
     {
         if (!bicicletas.contains(bicicleta))
         {
             throw new BicicletaNaoEstaNaEstacaoException();
         }
+    }
+
+    public void retirar(Bicicleta bicicleta) throws BikeshareException
+    {
+        verificarBicicleta(bicicleta);
         bicicletas.remove(bicicleta);
     }
 
