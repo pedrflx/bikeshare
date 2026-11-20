@@ -2,6 +2,10 @@ package br.ufal.ic.p2.bikeshare.utils;
 
 import br.ufal.ic.p2.bikeshare.exceptions.BikeshareException;
 import java.util.Locale;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 /*
     reúne as validações e conversões de texto que várias classes usam
@@ -10,8 +14,8 @@ import java.util.Locale;
 
 public class Conversor
 {
-
-    // texto nulo, vazio ou só com espaços conta como vazio
+    private static final DateTimeFormatter FORMATO_DATA = DateTimeFormatter.ofPattern("d/M/uuuu H:mm").withResolverStyle(ResolverStyle.STRICT);
+    // texto null ou só com espaços conta como vazio
     public static boolean ehVazio(String texto)
     {
         return texto == null || texto.trim().isEmpty();
@@ -93,6 +97,24 @@ public class Conversor
             throw foraDoLimite;
         }
         return numero;
+    }
+
+    public static LocalDateTime converterData(String valor, BikeshareException nula, BikeshareException invalida) throws BikeshareException
+    {
+        validarTexto(valor, nula);
+        try
+        {
+            return LocalDateTime.parse(valor.trim(), FORMATO_DATA);
+        }
+        catch (DateTimeParseException e)
+        {
+            throw invalida;
+        }
+    }
+
+    public static String formatarData(LocalDateTime data)
+    {
+        return data.format(FORMATO_DATA);
     }
 
     // 50 vira "50,00" e 120.5 vira "120,50"
