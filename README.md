@@ -61,3 +61,5 @@ Está fora do escopo: qualquer interface gráfica ou web, integração com um ga
 18/11 US5 concluída (us5 com 42 testes OK e us5_1 com 11). Cadastro de estação com nome, endereço e capacidade. Os repositórios tem uma mãe que gera os ids, e as estações também são salvas no arquivo.
 
 19/11 US6 e US7 concluídas (us6 com 74 testes OK, us6_1 com 14 e us7 com 39). Bicicletas normais e elétricas com polimorfismo: só a elétrica tem bateria, e abaixo de 15% ela ocupa a vaga mas não conta como disponível. A estação confere as vagas e cada bicicleta responde se está disponível.
+
+20/11 US8 concluída (us8 com 106 testes OK e us8_1 com 17). Retirada de bicicleta: cada objeto confere a sua parte e só depois de tudo aprovado a corrida começa. Datas seguindo o padrão e recusando datas impossíveis.

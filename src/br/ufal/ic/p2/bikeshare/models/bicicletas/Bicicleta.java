@@ -14,7 +14,7 @@ public abstract class Bicicleta implements Serializable
     private static final String SEM_ESTACAO = "nenhuma";
     private String id;
     private String estado = "disponivel";
-    private String estacao = "nenhuma";
+    private String estacao = SEM_ESTACAO;
 
     public Bicicleta(String id)
     {
@@ -72,7 +72,7 @@ public abstract class Bicicleta implements Serializable
         return id;
     }
 
-    private String estacao = SEM_ESTACAO;
+    public String getEstado() { return estado; }
 
     public void setEstacao(String estacao)
     {

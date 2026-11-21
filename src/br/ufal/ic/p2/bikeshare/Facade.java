@@ -10,6 +10,7 @@ import br.ufal.ic.p2.bikeshare.models.estacoes.Estacao;
 import br.ufal.ic.p2.bikeshare.sistema.RepositorioEstacoes;
 import br.ufal.ic.p2.bikeshare.sistema.CriaBicicleta;
 import br.ufal.ic.p2.bikeshare.sistema.RepositorioBicicletas;
+import br.ufal.ic.p2.bikeshare.sistema.RepositorioAlugueis;
 
 /**
  Facade
@@ -21,6 +22,7 @@ public class Facade
     private RepositorioUsuarios usuarios;
     private RepositorioEstacoes estacoes;
     private RepositorioBicicletas bicicletas;
+    private RepositorioAlugueis alugueis;
 
     // ao abrir, o sistema retoma o que foi salvo no último encerrarSistema
     public Facade()
@@ -29,6 +31,7 @@ public class Facade
         usuarios = dados.getUsuarios();
         estacoes = dados.getEstacoes();
         bicicletas = dados.getBicicletas();
+        alugueis = dados.getAlugueis();
     }
 
     // =====================================================================
@@ -152,8 +155,9 @@ public class Facade
     // US8 - Retirada de bicicleta
     // =====================================================================
 
-    public String retirarBicicleta(String usuario, String estacao, String bicicleta, String data) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public String retirarBicicleta(String usuario, String estacao, String bicicleta, String data) throws BikeshareException
+    {
+        return alugueis.retirar(usuarios.buscar(usuario), estacoes.buscar(estacao), bicicletas.buscar(bicicleta), data);
     }
 
     // =====================================================================
@@ -176,8 +180,9 @@ public class Facade
         throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
     }
 
-    public String getAtributoAluguel(String aluguel, String atributo) {
-        throw new UnsupportedOperationException(AINDA_NAO_IMPLEMENTADO);
+    public String getAtributoAluguel(String aluguel, String atributo) throws BikeshareException
+    {
+        return alugueis.buscar(aluguel).getAtributo(atributo);
     }
 
     // =====================================================================
@@ -238,10 +243,11 @@ public class Facade
         usuarios = new RepositorioUsuarios();
         estacoes = new RepositorioEstacoes();
         bicicletas = new RepositorioBicicletas();
+        alugueis = new RepositorioAlugueis();
     }
 
     public void encerrarSistema() throws BikeshareException
     {
-        Persistencia.salvar(new Dados(usuarios, estacoes, bicicletas));
+        Persistencia.salvar(new Dados(usuarios, estacoes, bicicletas, alugueis));
     }
 }
